@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="FPH Transport">
+  <defs>
+    <clipPath id="ukS"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
+    <clipPath id="ukT"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
+    <path id="arcB" d="M62,222 A138 138 0 0 0 338,222"/>
+    <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe5ee"/></linearGradient>
+  </defs>
+  <circle cx="200" cy="200" r="198" fill="#2E4A6E"/>
+  <circle cx="200" cy="200" r="184" fill="#ffffff"/>
+  <circle cx="200" cy="200" r="174" fill="none" stroke="#2E4A6E" stroke-width="4"/>
+  <text x="200" y="122" text-anchor="middle" font-family="Montserrat, 'Arial Black', Arial, sans-serif" font-weight="900" font-size="76" letter-spacing="6" fill="#2E4A6E">FPH</text>
+  <text font-family="Montserrat, 'Arial Black', Arial, sans-serif" font-weight="800" font-size="33" letter-spacing="7" fill="#2E4A6E"><textPath href="#arcB" startOffset="50%" text-anchor="middle">TRANSPORT</textPath></text>
+
+  <!-- flags -->
+  <line x1="74" y1="146" x2="80" y2="214" stroke="#9aa3ad" stroke-width="3" stroke-linecap="round"/>
+  <g transform="translate(76 150) rotate(-6)">
+    <rect width="20" height="32" fill="#0046AE"/><rect x="20" width="20" height="32" fill="#FFD200"/><rect x="40" width="20" height="32" fill="#CC092F"/>
+    <path d="M24,9 h12 v9 q0,6 -6,8 q-6,-2 -6,-8z" fill="#B07E2E"/><path d="M27,12 h6 v6 q0,3 -3,4 q-3,-1 -3,-4z" fill="#CC092F"/>
+  </g>
+  <line x1="330" y1="136" x2="326" y2="204" stroke="#9aa3ad" stroke-width="3" stroke-linecap="round"/>
+  <svg x="268" y="140" width="60" height="30" viewBox="0 0 60 30">
+    <g clip-path="url(#ukS)">
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#ukT)" stroke="#C8102E" stroke-width="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+    </g>
+  </svg>
+
+  <!-- truck -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <rect x="112" y="226" width="96" height="26" rx="6" fill="#E9D84A" stroke="#1f2937" stroke-width="2.5"/>
+    <path d="M118,240 h84" stroke="#2f9e5b" stroke-width="5" stroke-dasharray="7 5"/>
+    <rect x="100" y="252" width="146" height="9" rx="2" fill="#F2C230" stroke="#1f2937" stroke-width="2.5"/>
+    <rect x="96" y="261" width="222" height="12" rx="3" fill="#2b3440"/>
+    <rect x="228" y="208" width="14" height="46" rx="3" fill="#D7263D" stroke="#1f2937" stroke-width="2.5"/>
+    <path d="M236,214 L166,176" stroke="#1f2937" stroke-width="13"/>
+    <path d="M236,214 L166,176" stroke="#D7263D" stroke-width="8"/>
+    <path d="M166,176 L232,150" stroke="#1f2937" stroke-width="10"/>
+    <path d="M166,176 L232,150" stroke="#3a4350" stroke-width="5"/>
+    <path d="M232,150 v20" stroke="#1f2937" stroke-width="2"/>
+    <path d="M232,170 a5 5 0 1 0 5,5" fill="none" stroke="#D7263D" stroke-width="3"/>
+    <path d="M247,262 V206 Q247,196 257,196 H296 Q306,196 310,206 L318,232 V262 Z" fill="url(#cab)" stroke="#1f2937" stroke-width="3"/>
+    <path d="M263,204 H296 L304,229 H263 Z" fill="#9cc3e6" stroke="#1f2937" stroke-width="2"/>
+    <path d="M258,232 V258" stroke="#1f2937" stroke-width="2"/>
+    <rect x="268" y="190" width="14" height="6" rx="2" fill="#F59E0B" stroke="#1f2937" stroke-width="1.5"/>
+    <rect x="304" y="244" width="16" height="17" rx="2" fill="#3a4350"/>
+    <circle cx="313" cy="238" r="3" fill="#fde68a"/>
+  </g>
+  <g fill="#1f2937"><circle cx="132" cy="281" r="15"/><circle cx="164" cy="281" r="15"/><circle cx="288" cy="281" r="15"/></g>
+  <g fill="#cbd5e1"><circle cx="132" cy="281" r="6"/><circle cx="164" cy="281" r="6"/><circle cx="288" cy="281" r="6"/></g>
+</svg>
