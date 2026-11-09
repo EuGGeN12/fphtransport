@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPH Transport</title>
+<meta name="description" content="Transport de mărfuri grele, echipamente și vehicule din Marea Britanie în România și Republica Moldova. Camion cu macara proprie.">
+<link rel="icon" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1626; --navy:#2E4A6E; --text:#f2f6fc; --muted:#a9b7cc;
+  --glass:rgba(255,255,255,.075); --glass-strong:rgba(255,255,255,.13);
+  --edge:rgba(255,255,255,.22); --hi:rgba(255,255,255,.55);
+  --accent:#ffcf3f; --red:#e23a4e; --blue:#4c8dff;
+  --r:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ambient background */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#1b3355 0%,#0b1626 60%)}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:float 22s ease-in-out infinite alternate}
+.b1{width:520px;height:520px;background:#2f6bff;top:-120px;left:-120px}
+.b2{width:420px;height:420px;background:#ffc42e;top:30%;right:-140px;opacity:.35;animation-delay:-6s}
+.b3{width:460px;height:460px;background:#e2304a;bottom:-160px;left:20%;opacity:.35;animation-delay:-12s}
+@keyframes float{to{transform:translate(60px,40px) scale(1.12)}}
+.grain{position:absolute;inset:0;opacity:.06;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:3px 3px}
+
+/* liquid glass */
+.glass{position:relative;background:linear-gradient(145deg,var(--glass-strong),var(--glass));
+  -webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
+  border:1px solid var(--edge);border-radius:var(--r);
+  box-shadow:inset 0 1px 0 var(--hi),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 24px rgba(255,255,255,.04),0 20px 50px -20px rgba(0,0,0,.55)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(160deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,.08) 100%);
+  mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask-composite:exclude;padding:1px}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* nav */
+header{position:sticky;top:14px;z-index:50;padding:0 16px}
+.nav{max-width:1160px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:8px 8px 8px 12px;border-radius:999px}
+.brand{display:flex;align-items:center;gap:10px;font-family:Montserrat,sans-serif;font-weight:900;letter-spacing:.06em}
+.brand svg{width:40px;height:40px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+.brand small{display:block;font-family:Inter;font-weight:600;font-size:10px;letter-spacing:.28em;color:var(--muted)}
+.nav nav{display:flex;gap:4px;margin-left:auto}
+.nav nav a{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);transition:.25s}
+.nav nav a:hover{color:var(--text);background:rgba(255,255,255,.08)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;font-family:inherit}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(180deg,#ffe07a,#ffc21a);color:#1b2433;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 10px 30px -8px rgba(255,194,26,.6)}
+.btn-glass{color:var(--text);background:rgba(255,255,255,.1);border-color:var(--edge);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 var(--hi)}
+.btn-sm{padding:10px 18px;font-size:14px}
+
+/* hero */
+.hero{padding:90px 0 60px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#dbe6f7}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:#3ee08f;box-shadow:0 0 0 4px rgba(62,224,143,.2)}
+h1{font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:22px 0 20px}
+h1 .grad{background:linear-gradient(90deg,#9fc3ff,#ffffff 45%,#ffd862);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;color:var(--muted);max-width:540px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.chip{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:16px;font-size:14px;font-weight:500}
+.chip svg{width:18px;height:18px;color:var(--accent)}
+
+.hero-visual{position:relative;aspect-ratio:1;max-width:460px;justify-self:center;width:100%}
+.orb{position:absolute;inset:6%;border-radius:50%;display:grid;place-items:center;padding:10%}
+.orb svg{width:100%;height:100%;filter:drop-shadow(0 25px 40px rgba(0,0,0,.45));animation:bob 6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.float-card{position:absolute;padding:14px 16px;border-radius:20px;font-size:13px;min-width:170px}
+.float-card b{display:block;font-size:15px}
+.float-card span{color:var(--muted)}
+.fc1{top:4%;left:-6%}
+.fc2{bottom:6%;right:-6%}
+.route-mini{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.route-mini i{flex:1;height:2px;min-width:26px;background:repeating-linear-gradient(90deg,var(--accent) 0 6px,transparent 6px 11px)}
+
+/* sections */
+section{padding:80px 0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+h2{font-size:clamp(30px,4vw,46px);letter-spacing:-.03em;line-height:1.1;margin:10px 0 14px}
+.sub{color:var(--muted);max-width:600px;font-size:17px}
+.head{margin-bottom:40px}
+
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{padding:28px 24px;transition:transform .35s,box-shadow .35s}
+.card:hover{transform:translateY(-6px)}
+.ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:18px;
+  background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(255,255,255,.05));border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi)}
+.ico svg{width:26px;height:26px}
+.card h3{font-size:19px;margin-bottom:8px;letter-spacing:-.01em}
+.card p{color:var(--muted);font-size:15px}
+
+/* route */
+.route{padding:36px;display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center}
+.route ul{list-style:none;display:grid;gap:14px;margin-top:22px}
+.route li{display:flex;gap:12px;align-items:flex-start;color:var(--muted)}
+.route li b{color:var(--text)}
+.check{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(62,224,143,.18);color:#3ee08f;font-size:13px;font-weight:800}
+.map{width:100%;height:auto}
+.map .path{stroke-dasharray:8 8;animation:dash 1.6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-32}}
+.map .truck{offset-path:path("M70 120 C 170 40, 260 190, 360 120 S 540 60, 620 140");animation:drive 9s ease-in-out infinite alternate}
+@keyframes drive{from{offset-distance:2%}to{offset-distance:98%}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+.step{padding:26px 22px}
+.step .n{font-family:Montserrat;font-weight:900;font-size:40px;line-height:1;background:linear-gradient(180deg,#fff,rgba(255,255,255,.15));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:14px}
+.step h3{font-size:17px;margin-bottom:6px}
+.step p{color:var(--muted);font-size:14.5px}
+
+/* contact */
+.contact{padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+form{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select,textarea{width:100%;font:inherit;font-size:15px;color:var(--text);padding:14px 16px;border-radius:16px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);outline:none;transition:.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+input::placeholder,textarea::placeholder{color:#8797ad}
+input:focus,select:focus,textarea:focus{border-color:rgba(255,207,63,.7);background:rgba(255,255,255,.11);box-shadow:0 0 0 4px rgba(255,207,63,.15)}
+select option{color:#111}
+textarea{min-height:110px;resize:vertical}
+.contact-list{display:grid;gap:12px;margin-top:26px}
+.contact-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px}
+.contact-item .ico{margin:0;width:44px;height:44px;border-radius:14px}
+.contact-item span{display:block;font-size:13px;color:var(--muted)}
+.contact-item b{overflow-wrap:anywhere}
+.note{font-size:13px;color:var(--muted);min-height:20px}
+
+footer{padding:30px 0 50px;color:var(--muted);font-size:14px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 22px;border-radius:24px}
+
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ---- motion ---- */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#4c8dff,#ffd862,#e23a4e)}
+header .nav{transition:background .4s,box-shadow .4s}
+header.scrolled .nav{background:linear-gradient(145deg,rgba(22,38,64,.72),rgba(22,38,64,.5))}
+.blob{translate:calc(var(--px,0)*50px) calc(var(--py,0)*50px);transition:translate .8s ease-out}
+
+/* headline words rise in, gradient words shimmer */
+h1 .w{display:inline-block;animation:wordIn .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*90ms + .15s)}
+h1 .grad{background:none;color:inherit}
+h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:wordIn .9s cubic-bezier(.2,.8,.2,1) both,shimmer 6s linear infinite;animation-delay:calc(var(--i)*90ms + .15s),0s}
+@keyframes wordIn{from{opacity:0;transform:translateY(45%) rotateX(-50deg);filter:blur(10px)}}
+@keyframes shimmer{to{background-position:300% 0}}
+
+/* logo orb: glowing rotating ring + orbiting light */
+.ring{position:absolute;inset:1%;border-radius:50%;background:conic-gradient(#4c8dff,#ffd862,#e23a4e,#4c8dff);filter:blur(16px);opacity:.6;animation:spin 10s linear infinite;
+  -webkit-mask:radial-gradient(circle,transparent 63%,#000 66%,#000 70%,transparent 73%);mask:radial-gradient(circle,transparent 63%,#000 66%,#000 70%,transparent 73%)}
+.orbit{position:absolute;inset:3%;animation:spin 14s linear infinite reverse;pointer-events:none}
+.orbit::before{content:"";position:absolute;top:0;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff3c4;box-shadow:0 0 16px 5px #ffd862}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fc1{animation:floaty 7s ease-in-out infinite}
+.fc2{animation:floaty 8s ease-in-out -3s infinite}
+@keyframes floaty{50%{transform:translateY(-12px)}}
+
+/* button shine */
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);animation:shine 4.5s ease-in-out infinite}
+@keyframes shine{0%,72%{left:-60%}100%{left:130%}}
+
+/* marquee band */
+.marquee{overflow:hidden;border-radius:999px;padding:16px 0;margin-top:10px;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;width:max-content;animation:marq 32s linear infinite}
+.track span{padding-right:44px;font-weight:700;font-size:15px;letter-spacing:.04em;white-space:nowrap;color:#dbe6f7}
+.track span::after{content:"✦";margin-left:44px;color:var(--accent)}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* cursor spotlight on glass + icon pop */
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.18),transparent 60%)}
+.spot:hover::after{opacity:1}
+.card:hover .ico{animation:pop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{40%{transform:scale(1.18) rotate(-8deg)}}
+.step:hover .n{background-image:linear-gradient(180deg,#ffe07a,rgba(255,194,26,.2))}
+
+/* map: pulsing stops */
+.map .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{from{transform:scale(1);opacity:.8}to{transform:scale(3.2);opacity:0}}
+
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;padding-top:60px;text-align:left}
+  .hero-visual{max-width:360px}
+  .grid4,.steps{grid-template-columns:1fr 1fr}
+  .route,.contact{grid-template-columns:1fr}
+  .nav nav{display:none}
+  .nav .btn{margin-left:auto}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  header{padding:0 10px}
+  .grid4,.steps,.row{grid-template-columns:1fr}
+  .route,.contact{padding:24px}
+  .fc1{left:0}.fc2{right:0}
+  .float-card{min-width:0}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grain"></div></div>
+<div class="progress"></div>
+
+<!-- vector logo (recreated, crisp at any size) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="ukS"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
+    <clipPath id="ukT"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
+    <path id="arcB" d="M62,222 A138 138 0 0 0 338,222"/>
+    <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#dfe5ee"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="198" fill="#2E4A6E"/>
+    <circle cx="200" cy="200" r="184" fill="#fff"/>
+    <circle cx="200" cy="200" r="174" fill="none" stroke="#2E4A6E" stroke-width="4"/>
+    <text x="200" y="122" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="76" letter-spacing="6" fill="#2E4A6E">FPH</text>
+    <text font-family="Montserrat, Arial Black, sans-serif" font-weight="800" font-size="33" letter-spacing="7" fill="#2E4A6E"><textPath href="#arcB" startOffset="50%" text-anchor="middle">TRANSPORT</textPath></text>
+    <line x1="74" y1="146" x2="80" y2="214" stroke="#9aa3ad" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(76 150) rotate(-6)">
+      <rect width="20" height="32" fill="#0046AE"/><rect x="20" width="20" height="32" fill="#FFD200"/><rect x="40" width="20" height="32" fill="#CC092F"/>
+      <path d="M24,9 h12 v9 q0,6 -6,8 q-6,-2 -6,-8z" fill="#B07E2E"/><path d="M27,12 h6 v6 q0,3 -3,4 q-3,-1 -3,-4z" fill="#CC092F"/>
+    </g>
+    <line x1="330" y1="136" x2="326" y2="204" stroke="#9aa3ad" stroke-width="3" stroke-linecap="round"/>
+    <svg x="268" y="140" width="60" height="30" viewBox="0 0 60 30">
+      <g clip-path="url(#ukS)">
+        <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+        <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#ukT)" stroke="#C8102E" stroke-width="4"/>
+        <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+      </g>
+    </svg>
+    <g stroke-linejoin="round" stroke-linecap="round">
+      <rect x="112" y="226" width="96" height="26" rx="6" fill="#E9D84A" stroke="#1f2937" stroke-width="2.5"/>
+      <path d="M118,240 h84" stroke="#2f9e5b" stroke-width="5" stroke-dasharray="7 5"/>
+      <rect x="100" y="252" width="146" height="9" rx="2" fill="#F2C230" stroke="#1f2937" stroke-width="2.5"/>
+      <rect x="96" y="261" width="222" height="12" rx="3" fill="#2b3440"/>
+      <rect x="228" y="208" width="14" height="46" rx="3" fill="#D7263D" stroke="#1f2937" stroke-width="2.5"/>
+      <path d="M236,214 L166,176" stroke="#1f2937" stroke-width="13"/>
+      <path d="M236,214 L166,176" stroke="#D7263D" stroke-width="8"/>
+      <path d="M166,176 L232,150" stroke="#1f2937" stroke-width="10"/>
+      <path d="M166,176 L232,150" stroke="#3a4350" stroke-width="5"/>
+      <path d="M232,150 v20" stroke="#1f2937" stroke-width="2"/>
+      <path d="M232,170 a5 5 0 1 0 5,5" fill="none" stroke="#D7263D" stroke-width="3"/>
+      <path d="M247,262 V206 Q247,196 257,196 H296 Q306,196 310,206 L318,232 V262 Z" fill="url(#cab)" stroke="#1f2937" stroke-width="3"/>
+      <path d="M263,204 H296 L304,229 H263 Z" fill="#9cc3e6" stroke="#1f2937" stroke-width="2"/>
+      <path d="M258,232 V258" stroke="#1f2937" stroke-width="2"/>
+      <rect x="268" y="190" width="14" height="6" rx="2" fill="#F59E0B" stroke="#1f2937" stroke-width="1.5"/>
+      <rect x="304" y="244" width="16" height="17" rx="2" fill="#3a4350"/>
+      <circle cx="313" cy="238" r="3" fill="#fde68a"/>
+    </g>
+    <g fill="#1f2937"><circle cx="132" cy="281" r="15"/><circle cx="164" cy="281" r="15"/><circle cx="288" cy="281" r="15"/></g>
+    <g fill="#cbd5e1"><circle cx="132" cy="281" r="6"/><circle cx="164" cy="281" r="6"/><circle cx="288" cy="281" r="6"/></g>
+  </symbol>
+</svg>
+
+<header>
+  <div class="nav glass">
+    <a href="#" class="brand"><svg><use href="#logo"/></svg><div>FPH<small>TRANSPORT</small></div></a>
+    <nav>
+      <a href="#servicii">Servicii</a>
+      <a href="#ruta">Ruta</a>
+      <a href="#proces">Cum lucrăm</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary btn-sm">Cere ofertă</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="reveal">
+      <span class="pill glass"><span class="dot"></span>🇬🇧 Marea Britanie ⇄ 🇷🇴 România · 🇲🇩 Moldova</span>
+      <h1><span class="w" style="--i:0">Transport</span> <span class="w" style="--i:1">greu,</span><br><span class="grad"><span class="w g" style="--i:2">din</span> <span class="w g" style="--i:3">UK</span> <span class="w g" style="--i:4">până</span> <span class="w g" style="--i:5">la</span> <span class="w g" style="--i:6">ușa</span> <span class="w g" style="--i:7">ta.</span></span></h1>
+      <p class="lead">Transportăm echipamente, utilaje și vehicule din Marea Britanie în România și Republica Moldova — cu camion cu macara proprie, așa că încărcarea și descărcarea sunt incluse.</p>
+      <div class="cta">
+        <a href="#contact" class="btn btn-primary">Cere o ofertă gratuită →</a>
+        <a href="https://www.instagram.com/fph.transport/" target="_blank" rel="noopener" class="btn btn-glass">Vezi pe Instagram</a>
+      </div>
+      <div class="chips">
+        <div class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V8l7-5v18M13 8h6l-2 4"/></svg>Macara la bord</div>
+        <div class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-6 8-12a8 8 0 1 0-16 0c0 6 8 12 8 12z"/><circle cx="12" cy="10" r="3"/></svg>Door-to-door</div>
+        <div class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10l-3-3M17 17H7l3 3"/></svg>Tur și retur</div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="ring"></div>
+      <div class="orb glass"><svg><use href="#logo"/></svg></div>
+      <div class="orbit"></div>
+      <div class="float-card glass fc1">
+        <span>Rută regulată</span>
+        <div class="route-mini">UK <i></i> RO <i></i> MD</div>
+      </div>
+      <div class="float-card glass fc2">
+        <b>Export vehicule</b>
+        <span>auto, utilitare, utilaje</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee glass reveal" aria-hidden="true">
+    <div class="track">
+      <span>🇬🇧 UK → 🇷🇴 România → 🇲🇩 Moldova</span><span>Export vehicule</span><span>Utilaje agricole & construcții</span><span>Macara la bord</span><span>Door-to-door</span><span>Mărfuri grele</span>
+      <span>🇬🇧 UK → 🇷🇴 România → 🇲🇩 Moldova</span><span>Export vehicule</span><span>Utilaje agricole & construcții</span><span>Macara la bord</span><span>Door-to-door</span><span>Mărfuri grele</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="servicii">
+    <div class="head reveal">
+      <div class="eyebrow">Servicii</div>
+      <h2>Ce transportăm</h2>
+      <p class="sub">Specializați pe încărcături grele și voluminoase, pe care un curier obișnuit nu le poate prelua.</p>
+    </div>
+    <div class="grid4">
+      <div class="card glass reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd862" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="12" height="9" rx="1"/><path d="M14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
+        <h3>Mărfuri grele</h3>
+        <p>Încărcături agabaritice și grele, asigurate și fixate corect pentru drum lung.</p>
+      </div>
+      <div class="card glass reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#9fc3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14l-1.5-5.5A2 2 0 0 0 15.6 10H8.4a2 2 0 0 0-1.9 1.5z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M3 17h2M19 17h2"/></svg></div>
+        <h3>Export vehicule</h3>
+        <p>Autoturisme, utilitare, ambulanțe și vehicule speciale cumpărate din UK.</p>
+      </div>
+      <div class="card glass reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a98" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 14.3H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 9.7 3V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1.3z"/></svg></div>
+        <h3>Echipamente & utilaje</h3>
+        <p>Utilaje agricole, de construcții, generatoare, echipamente industriale.</p>
+      </div>
+      <div class="card glass reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#7ff0b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l10-6M14 3l6 3M14 3v4M10 21V11M18 9v4"/><path d="M16 13h4v3h-4z"/><path d="M2 21h20"/></svg></div>
+        <h3>Încărcare cu macara</h3>
+        <p>Macara proprie pe camion — nu ai nevoie de stivuitor la încărcare sau livrare.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTE -->
+  <section id="ruta">
+    <div class="route glass reveal">
+      <div>
+        <div class="eyebrow">Ruta</div>
+        <h2>Marea Britanie → Europa, și înapoi</h2>
+        <p class="sub">Ne ocupăm de tot drumul, inclusiv de partea de documente pentru export.</p>
+        <ul>
+          <li><span class="check">✓</span><div><b>Preluare oriunde în UK</b> — de la vânzător, dealer sau depozit.</div></li>
+          <li><span class="check">✓</span><div><b>Livrare în România și Moldova</b> — direct la adresa ta.</div></li>
+          <li><span class="check">✓</span><div><b>Și retur</b> — transport din Europa către UK la cerere.</div></li>
+        </ul>
+      </div>
+      <svg class="map" viewBox="0 0 680 240" fill="none" aria-label="Ruta UK - România - Moldova">
+        <defs>
+          <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#4c8dff"/><stop offset=".6" stop-color="#ffd862"/><stop offset="1" stop-color="#e23a4e"/></linearGradient>
+        </defs>
+        <path d="M70 120 C 170 40, 260 190, 360 120 S 540 60, 620 140" stroke="rgba(255,255,255,.12)" stroke-width="10" stroke-linecap="round"/>
+        <path class="path" d="M70 120 C 170 40, 260 190, 360 120 S 540 60, 620 140" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
+        <g font-family="Inter" font-size="14" font-weight="600" fill="#f2f6fc" text-anchor="middle">
+          <circle cx="70" cy="120" r="9" fill="#4c8dff" stroke="#fff" stroke-width="3"/><text x="70" y="160">🇬🇧 UK</text>
+          <circle cx="215" cy="104" r="5" fill="#fff" opacity=".6"/><text x="215" y="80" fill="#a9b7cc" font-size="12">Franța · Belgia</text>
+          <circle cx="360" cy="120" r="5" fill="#fff" opacity=".6"/><text x="360" y="152" fill="#a9b7cc" font-size="12">Germania · Austria</text>
+          <circle cx="500" cy="92" r="9" fill="#ffd862" stroke="#fff" stroke-width="3"/><text x="500" y="66">🇷🇴 România</text>
+          <circle cx="620" cy="140" r="9" fill="#e23a4e" stroke="#fff" stroke-width="3"/><text x="620" y="180">🇲🇩 Moldova</text>
+        </g>
+        <circle class="pulse" cx="70" cy="120" r="9" stroke="#4c8dff" stroke-width="2"/>
+        <circle class="pulse" cx="500" cy="92" r="9" stroke="#ffd862" stroke-width="2" style="animation-delay:.8s"/>
+        <circle class="pulse" cx="620" cy="140" r="9" stroke="#e23a4e" stroke-width="2" style="animation-delay:1.6s"/>
+        <g class="truck"><rect x="-14" y="-9" width="28" height="18" rx="6" fill="#fff"/><rect x="2" y="-6" width="9" height="7" rx="2" fill="#2E4A6E"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="proces">
+    <div class="head reveal">
+      <div class="eyebrow">Cum lucrăm</div>
+      <h2>Simplu, în 4 pași</h2>
+    </div>
+    <div class="steps">
+      <div class="step glass reveal"><div class="n">01</div><h3>Ne spui ce ai</h3><p>Ce transportăm, de unde și unde. O poză ajută.</p></div>
+      <div class="step glass reveal"><div class="n">02</div><h3>Primești oferta</h3><p>Preț clar și dată estimativă de preluare.</p></div>
+      <div class="step glass reveal"><div class="n">03</div><h3>Încărcăm în UK</h3><p>Venim cu macaraua, încărcăm și fixăm marfa.</p></div>
+      <div class="step glass reveal"><div class="n">04</div><h3>Livrăm la tine</h3><p>Descărcare la adresă, în România sau Moldova.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact glass reveal">
+      <div>
+        <div class="eyebrow">Contact</div>
+        <h2>Cere o ofertă</h2>
+        <p class="sub">Completează formularul și îți răspundem cât mai repede.</p>
+        <div class="contact-list">
+          <a class="contact-item glass" href="https://www.instagram.com/fph.transport/" target="_blank" rel="noopener">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></div>
+            <div><span>Instagram</span><b>@fph.transport</b></div>
+          </a>
+          <a class="contact-item glass" href="tel:+4485899448">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+            <div><span>Telefon</span><b>+44 85899448</b></div>
+          </a>
+          <a class="contact-item glass" href="mailto:eugeniu55ilasciuc@gmail.com">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 7l9 6 9-6"/></svg></div>
+            <div><span>Email</span><b>eugeniu55ilasciuc@gmail.com</b></div>
+          </a>
+        </div>
+      </div>
+      <form id="quote">
+        <div class="row">
+          <input name="nume" placeholder="Nume" required>
+          <input name="telefon" placeholder="Telefon" required>
+        </div>
+        <select name="tip" required>
+          <option value="" disabled selected>Ce transportăm?</option>
+          <option>Vehicul</option>
+          <option>Utilaj / echipament</option>
+          <option>Marfă grea</option>
+          <option>Altceva</option>
+        </select>
+        <div class="row">
+          <input name="de" placeholder="De la (ex. Londra)">
+          <input name="la" placeholder="Până la (ex. Chișinău)">
+        </div>
+        <textarea name="detalii" placeholder="Detalii: dimensiuni, greutate, dată dorită…"></textarea>
+        <button class="btn btn-primary" type="submit">Trimite cererea</button>
+        <p class="note" id="note"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="foot glass">
+    <a href="#" class="brand"><svg><use href="#logo"/></svg><div>FPH<small>TRANSPORT</small></div></a>
+    <span>© 2026 FPH Transport · UK ⇄ România · Moldova</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el); });
+
+// Scroll progress bar + denser nav once scrolled
+const prog = document.querySelector('.progress'), hdr = document.querySelector('header');
+const onScroll = () => {
+  const h = document.documentElement;
+  prog.style.transform = `scaleX(${h.scrollTop / (h.scrollHeight - innerHeight) || 0})`;
+  hdr.classList.toggle('scrolled', scrollY > 20);
+};
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+// Cursor spotlight on glass panels
+document.querySelectorAll('.card,.step,.contact-item,.chip,.float-card').forEach(el => {
+  el.classList.add('spot');
+  el.addEventListener('pointermove', e => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', e.clientX - r.left + 'px');
+    el.style.setProperty('--my', e.clientY - r.top + 'px');
+  });
+});
+
+// 3D tilt on cards and parallax background — mouse only, and not with reduced motion
+if (matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+  document.querySelectorAll('.card,.step').forEach(el => {
+    el.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      el.style.transition = 'transform .12s ease-out'; el.style.transitionDelay = '0s';
+      el.style.transform = `perspective(800px) translateY(-6px) rotateX(${-y * 8}deg) rotateY(${x * 10}deg)`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.transition = 'transform .5s ease'; el.style.transform = ''; });
+  });
+  const bg = document.querySelector('.bg');
+  addEventListener('pointermove', e => {
+    bg.style.setProperty('--px', (e.clientX / innerWidth - .5).toFixed(3));
+    bg.style.setProperty('--py', (e.clientY / innerHeight - .5).toFixed(3));
+  });
+}
+
+// No backend: the request opens as a pre-filled email in the visitor's mail app.
+document.getElementById('quote').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const msg = `Nume: ${f.get('nume')}\nTelefon: ${f.get('telefon')}\nTip: ${f.get('tip')}\nRută: ${f.get('de') || '-'} → ${f.get('la') || '-'}\nDetalii: ${f.get('detalii') || '-'}`;
+  const subject = `Cerere ofertă – ${f.get('tip')} – ${f.get('nume')}`;
+  location.href = `mailto:eugeniu55ilasciuc@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(msg)}`;
+  document.getElementById('note').textContent = 'Se deschide aplicația de email… Dacă nu apare, scrie-ne la eugeniu55ilasciuc@gmail.com sau sună la +44 85899448.';
+});
+</script>
+</body>
+</html>
