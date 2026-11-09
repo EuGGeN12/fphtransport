@@ -51,6 +51,7 @@ header{position:sticky;top:14px;z-index:50;padding:0 16px}
 .nav nav{display:flex;gap:4px;margin-left:auto}
 .nav nav a{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);transition:.25s}
 .nav nav a:hover{color:var(--text);background:rgba(255,255,255,.08)}
+.menu-btn{display:none}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;font-family:inherit}
 .btn:hover{transform:translateY(-2px)}
@@ -62,7 +63,7 @@ header{position:sticky;top:14px;z-index:50;padding:0 16px}
 .hero{padding:90px 0 60px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#dbe6f7}
 .pill .dot{width:8px;height:8px;border-radius:50%;background:#3ee08f;box-shadow:0 0 0 4px rgba(62,224,143,.2)}
-h1{font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:22px 0 20px}
+h1{text-wrap:balance;font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:22px 0 20px}
 h1 .grad{background:linear-gradient(90deg,#9fc3ff,#ffffff 45%,#ffd862);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lead{font-size:18px;color:var(--muted);max-width:540px}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
@@ -104,7 +105,7 @@ h2{font-size:clamp(30px,4vw,46px);letter-spacing:-.03em;line-height:1.1;margin:1
 .route li{display:flex;gap:12px;align-items:flex-start;color:var(--muted)}
 .route li b{color:var(--text)}
 .check{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(62,224,143,.18);color:#3ee08f;font-size:13px;font-weight:800}
-.map{width:100%;height:auto}
+.map{width:100%;height:auto;overflow:hidden}
 .map .path{stroke-dasharray:8 8;animation:dash 1.6s linear infinite}
 @keyframes dash{to{stroke-dashoffset:-32}}
 .map .truck{offset-path:path("M70 120 C 170 40, 260 190, 360 120 S 540 60, 620 140");animation:drive 9s ease-in-out infinite alternate}
@@ -196,8 +197,19 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
   .hero-visual{max-width:360px}
   .grid4,.steps{grid-template-columns:1fr 1fr}
   .route,.contact{grid-template-columns:1fr}
-  .nav nav{display:none}
+  .nav{gap:8px}
   .nav .btn{margin-left:auto}
+  /* phone menu: hamburger opens a glass dropdown under the bar */
+  .menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:none;width:42px;height:42px;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.1);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi)}
+  .menu-btn span{width:18px;height:2px;border-radius:2px;background:#fff;transition:transform .3s}
+  .menu-open .menu-btn span:first-child{transform:translateY(3.5px) rotate(45deg)}
+  .menu-open .menu-btn span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+  .nav nav{position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;gap:2px;padding:10px;border-radius:24px;
+    background:rgba(16,29,51,.97);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 24px 50px -16px rgba(0,0,0,.6);
+    opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top center;transition:opacity .25s,transform .25s,visibility .25s}
+  .menu-open .nav nav{opacity:1;visibility:visible;transform:none}
+  .nav nav a{padding:14px 16px;border-radius:16px;font-size:16px;color:var(--text)}
 }
 @media (max-width:560px){
   .wrap{padding:0 16px}
@@ -207,6 +219,17 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
   .fc1{left:0}.fc2{right:0}
   .float-card{min-width:0}
   section{padding:56px 0}
+  h1{font-size:38px}
+  .lead{font-size:16.5px}
+  .cta .btn{flex:1 1 100%}
+  .pill{font-size:12px;padding:8px 12px}
+  /* 16px stops iOS from zooming into the form on focus */
+  input,select,textarea{font-size:16px}
+  /* map is scaled to ~45% on phones: enlarge labels, dots and truck, drop the minor labels */
+  .map .lbl{font-size:26px}
+  .map .lbl-sm{display:none}
+  .map circle{transform-box:fill-box;transform-origin:center;scale:1.7}
+  .hero-visual{max-width:320px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
 </style>
@@ -271,13 +294,14 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
 <header>
   <div class="nav glass">
     <a href="#" class="brand"><svg><use href="#logo"/></svg><div>FPH<small>TRANSPORT</small></div></a>
-    <nav>
+    <nav id="menu">
       <a href="#servicii">Servicii</a>
       <a href="#ruta">Ruta</a>
       <a href="#proces">Cum lucrăm</a>
       <a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="btn btn-primary btn-sm">Cere ofertă</a>
+    <button class="menu-btn" type="button" aria-label="Meniu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
   </div>
 </header>
 
@@ -286,7 +310,7 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
   <div class="hero">
     <div class="reveal">
       <span class="pill glass"><span class="dot"></span>🇬🇧 Marea Britanie ⇄ 🇷🇴 România · 🇲🇩 Moldova</span>
-      <h1><span class="w" style="--i:0">Transport</span> <span class="w" style="--i:1">greu,</span><br><span class="grad"><span class="w g" style="--i:2">din</span> <span class="w g" style="--i:3">UK</span> <span class="w g" style="--i:4">până</span> <span class="w g" style="--i:5">la</span> <span class="w g" style="--i:6">ușa</span> <span class="w g" style="--i:7">ta.</span></span></h1>
+      <h1><span class="w" style="--i:0">Transport</span> <span class="w" style="--i:1">greu,</span><br><span class="grad"><span class="w g" style="--i:2">din</span> <span class="w g" style="--i:3">UK</span> <span class="w g" style="--i:4">până</span> <span class="w g" style="--i:5">la</span> <span class="w g" style="--i:6">ușa ta.</span></span></h1>
       <p class="lead">Transportăm echipamente, utilaje și vehicule din Marea Britanie în România și Republica Moldova — cu camion cu macara proprie, așa că încărcarea și descărcarea sunt incluse.</p>
       <div class="cta">
         <a href="#contact" class="btn btn-primary">Cere o ofertă gratuită →</a>
@@ -372,11 +396,11 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
         <path d="M70 120 C 170 40, 260 190, 360 120 S 540 60, 620 140" stroke="rgba(255,255,255,.12)" stroke-width="10" stroke-linecap="round"/>
         <path class="path" d="M70 120 C 170 40, 260 190, 360 120 S 540 60, 620 140" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
         <g font-family="Inter" font-size="14" font-weight="600" fill="#f2f6fc" text-anchor="middle">
-          <circle cx="70" cy="120" r="9" fill="#4c8dff" stroke="#fff" stroke-width="3"/><text x="70" y="160">🇬🇧 UK</text>
-          <circle cx="215" cy="104" r="5" fill="#fff" opacity=".6"/><text x="215" y="80" fill="#a9b7cc" font-size="12">Franța · Belgia</text>
-          <circle cx="360" cy="120" r="5" fill="#fff" opacity=".6"/><text x="360" y="152" fill="#a9b7cc" font-size="12">Germania · Austria</text>
-          <circle cx="500" cy="92" r="9" fill="#ffd862" stroke="#fff" stroke-width="3"/><text x="500" y="66">🇷🇴 România</text>
-          <circle cx="620" cy="140" r="9" fill="#e23a4e" stroke="#fff" stroke-width="3"/><text x="620" y="180">🇲🇩 Moldova</text>
+          <circle cx="70" cy="120" r="9" fill="#4c8dff" stroke="#fff" stroke-width="3"/><text class="lbl" x="70" y="166">🇬🇧 UK</text>
+          <circle cx="215" cy="104" r="5" fill="#fff" opacity=".6"/><text class="lbl-sm" x="215" y="80" fill="#a9b7cc" font-size="12">Franța · Belgia</text>
+          <circle cx="360" cy="120" r="5" fill="#fff" opacity=".6"/><text class="lbl-sm" x="360" y="152" fill="#a9b7cc" font-size="12">Germania · Austria</text>
+          <circle cx="500" cy="92" r="9" fill="#ffd862" stroke="#fff" stroke-width="3"/><text class="lbl" x="500" y="60">🇷🇴 România</text>
+          <circle cx="620" cy="140" r="9" fill="#e23a4e" stroke="#fff" stroke-width="3"/><text class="lbl" x="600" y="190">🇲🇩 Moldova</text>
         </g>
         <circle class="pulse" cx="70" cy="120" r="9" stroke="#4c8dff" stroke-width="2"/>
         <circle class="pulse" cx="500" cy="92" r="9" stroke="#ffd862" stroke-width="2" style="animation-delay:.8s"/>
@@ -418,7 +442,7 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
           </a>
           <a class="contact-item glass" href="mailto:eugeniu55ilasciuc@gmail.com">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 7l9 6 9-6"/></svg></div>
-            <div><span>Email</span><b>eugeniu55ilasciuc@gmail.com</b></div>
+            <div><span>Email</span><b>eugeniu55ilasciuc@<wbr>gmail.com</b></div>
           </a>
         </div>
       </div>
@@ -456,6 +480,14 @@ h1 .g{background:linear-gradient(90deg,#9fc3ff,#fff,#ffd862,#9fc3ff);background-
 <script>
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
 document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el); });
+
+// Phone menu: toggle, close on link tap, outside tap or Escape
+const menuBtn = document.querySelector('.menu-btn'), hdrEl = document.querySelector('header');
+const setMenu = open => { hdrEl.classList.toggle('menu-open', open); menuBtn.setAttribute('aria-expanded', open); };
+menuBtn.addEventListener('click', () => setMenu(!hdrEl.classList.contains('menu-open')));
+document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('click', e => { if (!hdrEl.contains(e.target)) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
 // Scroll progress bar + denser nav once scrolled
 const prog = document.querySelector('.progress'), hdr = document.querySelector('header');
